@@ -191,7 +191,7 @@ class Redirect extends AbstractVerdict
             $page = GeneralUtility::makeInstance(PageRepository::class)->getPageOverlay($page, $targetLanguageId);
 
             // Overlay record does not exist
-            $allowFallback = (bool) ($this->configuration['allowFallback'] ?? false);
+            $allowFallback = (bool)($this->configuration['allowFallback'] ?? false);
             if (!isset($page['_PAGES_OVERLAY_UID']) && $allowFallback === false) {
                 $this->logger->info(sprintf('There is no page overlay for page %d and language %d', $page['uid'], $targetLanguageId));
 

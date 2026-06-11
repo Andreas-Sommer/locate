@@ -51,6 +51,52 @@ class FrontendTest extends FunctionalTestCase
     }
 
     /**
+     * @test
+     * @covers \Leuchtfeuer\Locate\Verdict\Redirect
+     */
+    public function redirectToFallbackLanguageIsSkippedByDefaultWithoutPageOverlay(): void
+    {
+        $this->setUpFallbackRedirectScenario();
+
+        $response = $this->executeFrontendSubRequest(
+            (new InternalRequest())->withPageId(1)
+        );
+
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame('', $response->getHeaderLine('location'));
+        self::assertSame('Hello World', (string)$response->getBody());
+    }
+
+    /**
+     * @test
+     * @covers \Leuchtfeuer\Locate\Verdict\Redirect
+     */
+    public function redirectToFallbackLanguageIsAllowedWithoutPageOverlay(): void
+    {
+        $this->setUpFallbackRedirectScenario();
+        $this->addTypoScriptToTemplateRecord(
+            1,
+            'config.tx_locate.verdicts.redirectToFallback.allowFallback = 1'
+        );
+
+        $response = $this->executeFrontendSubRequest(
+            (new InternalRequest())->withPageId(1)
+        );
+
+        self::assertSame(307, $response->getStatusCode());
+        self::assertSame('/zn/', $response->getHeaderLine('location'));
+    }
+
+    private function setUpFallbackRedirectScenario(): void
+    {
+        $this->setUpFrontendRootPage(
+            1,
+            ['setup' => ['EXT:locate/Tests/Functional/Fixtures/TypoScript/fallback.typoscript']]
+        );
+        $this->setUpFrontendSite(1);
+    }
+
+    /**
      * Copied from \TYPO3\CMS\Core\Tests\Functional\DataHandling\AbstractDataHandlerActionTestCase::setUpFrontendSite
      * in typo3/cms-core
      *
@@ -87,6 +133,8 @@ class FrontendTest extends FunctionalTestCase
                 'navigationTitle' => '',
                 'hreflang' => '',
                 'direction' => '',
+                'fallbackType' => 'fallback',
+                'fallbacks' => '0',
                 'flag' => 'zn',
             ],
         ];
