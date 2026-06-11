@@ -1,0 +1,21 @@
+page = PAGE
+page.10 = TEXT
+page.10.value = Hello World
+page.config.disableAllHeaderCode = 1
+
+config.tx_locate = 1
+config.tx_locate {
+    dryRun = 0
+    excludeBots = 0
+    sessionHandling = 0
+
+    verdicts {
+        redirectToFallback = Leuchtfeuer\Locate\Verdict\Redirect
+        redirectToFallback.sys_language = 1
+    }
+
+    judges {
+        100 = Leuchtfeuer\Locate\Judge\Fixed
+        100.verdict = redirectToFallback
+    }
+}
