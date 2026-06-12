@@ -1,0 +1,19 @@
+﻿.. include:: ../../Includes.txt
+
+==========================
+Version 12.0.5 - 2026/06/12
+==========================
+
+This release consolidates the divergent 12.0.3 and 12.0.4 release lines.
+
+Fixed
+=====
+
+* Restore frontend-aware TypoScript configuration retrieval from version 12.0.3.
+* Include the updated IP-to-country database from version 12.0.3.
+
+Changed
+===========
+
+* Preserve Symfony Console 7 compatibility from version 12.0.4.
+* Consolidate coding-standard and maintenance updates from both release lines.
