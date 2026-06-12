@@ -1,0 +1,14 @@
+﻿.. include:: ../../Includes.txt
+
+==========================
+Version 12.1.0 - 2026/06/12
+==========================
+
+This release adds explicit support for redirects to site languages that use TYPO3 language fallback.
+
+Added
+=====
+
+* Add the ``allowFallback`` redirect verdict option.
+* Allow redirects without a localized page record when ``allowFallback`` is enabled.
+* Add functional regression coverage for the default and enabled fallback behavior.

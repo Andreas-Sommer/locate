@@ -121,7 +121,7 @@ Override Query Parameter
 .. _functions-assignLanguage-verdicts-redirect-configuration-allowFallback:
 
 Allow Fallback
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 .. container:: table-row
 
    Property
@@ -131,9 +131,9 @@ Allow Fallback
    Default
          :code:`0`
    Description
-         If the option is enabled, redirection to a non-localized page is allowed. In this case, the page is accessed under the
-         corresponding language URL, even if it does not exist. The displayed content corresponds to the defined fallback page
-         of your site configuration.
+         If the option is enabled, redirection is allowed even when no localized page record exists for the target language.
+         The page is accessed through the target language URL and TYPO3 renders the content according to the fallback
+         configuration of that site language.
 
 .. _functions-assignLanguage-verdicts-redirect-example:
 
