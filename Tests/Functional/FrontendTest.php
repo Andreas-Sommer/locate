@@ -22,7 +22,7 @@ class FrontendTest extends FunctionalTestCase
     protected function setUp(): void
     {
         $this->testExtensionsToLoad = [
-            'typo3conf/ext/locate',
+            'leuchtfeuer/locate',
         ];
         parent::setUp();
         $this->importCSVDataSet(__DIR__ . '/Fixtures/redirect-scenario.csv');

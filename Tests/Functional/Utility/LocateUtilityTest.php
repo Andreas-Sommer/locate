@@ -24,7 +24,7 @@ class LocateUtilityTest extends FunctionalTestCase
     protected function setUp(): void
     {
         $this->testExtensionsToLoad = [
-            'typo3conf/ext/locate',
+            'leuchtfeuer/locate',
         ];
 
         parent::setUp();

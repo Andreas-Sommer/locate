@@ -70,9 +70,7 @@
   },
   "scripts": {
     "post-autoload-dump": [
-      "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare",
-      "mkdir -p .Build/public/typo3conf/ext/",
-      "[ -L .Build/public/typo3conf/ext/locate ] || ln -snvf ../../../../. .Build/public/typo3conf/ext/locate"
+      "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
     ],
     "cs-fix": ".Build/bin/php-cs-fixer fix --config php-cs-fixer.php --using-cache no --show-progress dots -v"
   },
