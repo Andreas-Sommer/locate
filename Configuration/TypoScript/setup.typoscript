@@ -7,6 +7,10 @@ config.tx_locate {
     # Whether bots should be excluded from the behavior of the extension.
     excludeBots = 1
 
+    # Comma-separated request header names that disable locate redirects for the current request.
+    # Useful for internal requests such as EXT:solr page indexing requests.
+    excludeHeaders =
+
     # If this option is enabled, the verdict will be saved in a session and will not be evaluated again.
     sessionHandling = 0
 

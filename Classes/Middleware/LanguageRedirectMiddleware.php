@@ -31,7 +31,8 @@ final class LanguageRedirectMiddleware implements MiddlewareInterface
     public function __construct(
         private readonly ConfigurationManager $configurationManager,
         private readonly LinkService $link
-    ) {}
+    ) {
+    }
 
     /**
      * @throws UnknownLinkHandlerException
@@ -46,6 +47,10 @@ final class LanguageRedirectMiddleware implements MiddlewareInterface
 
             if (isset($typoScript['config.']['tx_locate']) && (int)$typoScript['config.']['tx_locate'] === 1) {
                 $locateSetup = $typoScript['config.']['tx_locate.'] ?? [];
+
+                if ($this->shouldExcludeRequestByHeader($request, (string)($locateSetup['excludeHeaders'] ?? ''))) {
+                    return $handler->handle($request);
+                }
 
                 $config = [
                     'verdicts' => $locateSetup['verdicts.'] ?? [],
@@ -66,6 +71,19 @@ final class LanguageRedirectMiddleware implements MiddlewareInterface
         }
 
         return $handler->handle($request);
+    }
+
+    private function shouldExcludeRequestByHeader(ServerRequestInterface $request, string $excludedHeaders): bool
+    {
+        $headers = GeneralUtility::trimExplode(',', $excludedHeaders, true);
+
+        foreach ($headers as $header) {
+            if ($request->hasHeader($header)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

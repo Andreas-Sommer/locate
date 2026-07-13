@@ -119,6 +119,34 @@ If you do not want to activate the language assignment on every page, you can si
        config.tx_locate = 1
    [end]
 
+.. _admin-excludingRequestsByHeader:
+
+Excluding Requests by Header
+============================
+
+Some integrations render frontend pages through internal HTTP requests and identify those requests with custom headers.
+For example, EXT:solr page indexing requests use a dedicated request header and expect the requested frontend page to be
+rendered without any language redirect. Redirecting these requests prevents the integration from receiving the expected
+response.
+
+Use :typoscript:`config.tx_locate.excludeHeaders` to disable locate redirects when one of the configured request headers is
+present.
+
+.. code-block:: typoscript
+
+   config.tx_locate.excludeHeaders = X-Tx-Solr-Iq
+
+Multiple headers can be configured as a comma-separated list.
+
+.. code-block:: typoscript
+
+   config.tx_locate.excludeHeaders = X-Tx-Solr-Iq, X-Internal-Request
+
+This option is evaluated directly in the locate middleware against the current PSR-7 request. This is more reliable than
+disabling :typoscript:`config.tx_locate` through a request-dependent TypoScript condition, because the middleware reads the
+TypoScript setup while processing the frontend request and integrations may need to be excluded before locate evaluates its
+redirect verdicts.
+
 
 .. _admin-logging:
 
